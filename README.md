@@ -1,1 +1,1 @@
-# kubernetes-prometheus-thanos-application-workload
+# kubernetes-prometheus-thanos-application-cluster
