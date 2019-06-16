@@ -1,0 +1,1 @@
+# kubernetes-prometheus-thanos-application-workload
