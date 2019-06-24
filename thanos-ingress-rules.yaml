@@ -11,7 +11,7 @@ spec:
       targetPort: grpc
       name: grpc
   selector:
-    statefulset.kubernetes.io/pod-name: prometheus-ptn-prom-prometheus-operat-prometheus-0 
+    statefulset.kubernetes.io/pod-name: prometheus-dev-prom-prometheus-operat-prometheus-0 
   type: ClusterIP
 ---
 apiVersion: extensions/v1beta1
