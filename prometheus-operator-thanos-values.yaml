@@ -1,0 +1,15 @@
+prometheus:
+   prometheusSpec:
+     replicas: 2      # work in High-Availability mode
+     retention: 12h   # we only need a few hours of retention, since the rest is uploaded to blob
+     image:
+       tag: v2.10.0    
+     serviceMonitorNamespaceSelector:  # find target config from multiple namespaces
+       any: true
+     thanos:         # add Thanos Sidecar
+       tag: v0.5.0   
+       objectStorageConfig: # blob storage to upload metrics
+         key: thanos.yaml
+         name: thanos-storage-config
+ grafana:          
+   enabled: false

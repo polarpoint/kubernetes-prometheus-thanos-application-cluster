@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: prometheus
+  name: thanos-sidecar-0
+spec:
+  ports:
+    - port: 10901
+      protocol: TCP
+      targetPort: grpc
+      name: grpc
+  selector:
+    statefulset.kubernetes.io/pod-name: prometheus-ptn-prom-prometheus-operat-prometheus-0 
+  type: ClusterIP
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/backend-protocol: "GRPC"
+    nginx.ingress.kubernetes.io/auth-tls-verify-client: "on"
+    nginx.ingress.kubernetes.io/auth-tls-secret: "default/thanos-ca-secret"
+  labels:
+    app: prometheus
+  name: thanos-sidecar-0
+spec:
+  rules:
+  - host: prom.dev-polarpoint.local
+    http:
+      paths:
+      - backend:
+          serviceName: thanos-sidecar-0
+          servicePort: grpc
+  tls:
+  - hosts:
+    - prom.dev-polarpoint.local 
+    secretName: thanos-ingress-secret
+
